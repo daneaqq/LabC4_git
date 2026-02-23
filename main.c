@@ -14,4 +14,13 @@ int main()
             return 0;
         }
     }
+    int lasttwo = 0;
+    if (len >= 2)
+    {
+        lasttwo = (text[len - 2] - '0') * 10 + (text[len - 1] - '0');
+    }
+    else
+    {
+        lasttwo = text[len - 1] - '0';
+    }
 }
