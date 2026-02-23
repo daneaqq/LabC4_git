@@ -18,6 +18,6 @@ int main()
             DelSym(s1, i);
         else
             i++;
-
     }
+    printf("%s\n", s1);
 }
