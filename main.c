@@ -10,4 +10,6 @@ int main()
     char s1[1000] = "hello world";
     char s2[1000] = "lo";
     char seen[256] = { 0 };
+    for (int j = 0; s2[j] != '\0'; j++)
+        seen[s2[j]] = 1;
 }
