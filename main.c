@@ -1,4 +1,8 @@
 ﻿// 1. Уплотнить строку S1, удалив символы, встречающиеся в строке S2.
+//Tests:
+//s1 = "hello world", s2 = "lo" -> "he wrd"
+//s1 = "hello world", s2 = "" -> "hello world"
+//s1 = "hello", s2 = "hello" -> ""
 #include <stdio.h>
 void DelSym(char* str, int pos)
 {
