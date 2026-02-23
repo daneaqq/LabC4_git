@@ -23,4 +23,8 @@ int main()
     {
         lasttwo = text[len - 1] - '0';
     }
+    if ((lasttwo & 3) == 0)
+        printf("number in the decimal system is a multiple of 4\n");
+    else
+        printf("number in the decimal system is not a multiple of 4\n");
 }
