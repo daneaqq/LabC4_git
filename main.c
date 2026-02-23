@@ -5,3 +5,9 @@ void DelSym(char* str, int pos)
     for (int i = pos; str[i] != '\0'; i++)
         str[i] = str[i + 1];
 }
+int main()
+{
+    char s1[1000] = "hello world";
+    char s2[1000] = "lo";
+    char seen[256] = { 0 };
+}
