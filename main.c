@@ -12,4 +12,12 @@ int main()
     char seen[256] = { 0 };
     for (int j = 0; s2[j] != '\0'; j++)
         seen[s2[j]] = 1;
+    for (int i = 0; s1[i] != '\0'; )
+    {
+        if (seen[s1[i]])
+            DelSym(s1, i);
+        else
+            i++;
+
+    }
 }
