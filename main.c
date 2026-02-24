@@ -1,4 +1,9 @@
 ﻿// 2. В заданный непустой текст входят только цифры и буквы. Определить, является ли текст десятичной записью числа, кратного 4.
+//Tests:
+// text = "12345648" output: multiple of 4
+// text = "12345649" output: not multiple of 4
+// text = "" output: string is empty
+// text = "123a" output: not in decimal system
 #include <stdio.h>
 #include <string.h>
 int main()
@@ -30,5 +35,5 @@ int main()
           printf("number in the decimal system is not a multiple of 4\n");
       }
       else
-      printf("string ie empty");
+      printf("string is empty");
 }
