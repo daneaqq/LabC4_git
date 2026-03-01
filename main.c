@@ -22,4 +22,11 @@ int main()
     char *p = input;
     int found = 0;
     int w_len = strlen(w);
+
+    while (*p != '.' && *p != '\0')
+    {
+        while (*p == ' ' || *p == ',') p++;
+        if (*p == '.')
+          break;
+    }
 }
