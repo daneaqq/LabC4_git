@@ -14,3 +14,12 @@ int cmpstr(const char *s1, const char *s2, int n)
     }
     return 0;
 }
+
+int main()
+{
+    char input[1000] = "abc, bca, bac";
+    char w[100] = "bca";
+    char *p = input;
+    int found = 0;
+    int w_len = strlen(w);
+}
