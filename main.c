@@ -1,5 +1,10 @@
 ﻿// 3. Дана непустая последовательность слов из строчных букв; между соседними словами – запятая, пробел,
 // за последним словом – точка. Напечатать все слова из списка, отличные от заданного слова W.
+//Tests:
+// input: "abc, bca, bac.", w: "bca" output: abc bac
+// input: "bca, bca, bca.", w: "bca" output: нет отличных слов
+// input: "abc,  bca  ,  bac  .", w: "bca" output: abc bac
+// input: "abc,,,bca,,,bac.", w: "bca" output: abc bac
 #include <stdio.h>
 #include <string.h>
 
