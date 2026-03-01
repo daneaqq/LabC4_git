@@ -34,5 +34,17 @@ int main()
           p++;
 
         int len = p - start;
+
+        if (len != w_len)
+        {
+            printf("%.*s\n", len, start);
+            found = 1;
+        }
+        else if (cmpstr(start, w, len) != 0)
+        {
+            printf("%.*s\n", len, start);
+            found = 1;
+        }
     }
+
 }
