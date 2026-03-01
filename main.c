@@ -28,5 +28,11 @@ int main()
         while (*p == ' ' || *p == ',') p++;
         if (*p == '.')
           break;
+
+        char *start = p;
+        while (*p != '.' && *p != ',' && *p != ' ' && *p != '\0')
+          p++;
+
+        int len = p - start;
     }
 }
