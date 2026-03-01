@@ -46,5 +46,8 @@ int main()
             found = 1;
         }
     }
-
+    if (!found)
+    {
+        printf("Нет слов, отличных от '%s'\n", w);
+    }
 }
