@@ -3,6 +3,8 @@
 //s1 = "hello world", s2 = "lo" -> "he wrd"
 //s1 = "hello world", s2 = "" -> "hello world"
 //s1 = "hello", s2 = "hello" -> ""
+//s1 = "привет", s2 = "ет" -> "прив"
+
 #include <stdio.h>
 void DelSym(char* str, int pos)
 {
@@ -14,6 +16,12 @@ int main()
     char s1[1000] = "hello world";
     char s2[1000] = "lo";
     char seen[256] = { 0 };
+    for (int i = 0; s1[i] || s2[i]; i++)
+    if (((unsigned char)s1[i] > 127) || ((unsigned char)s2[i] > 127))
+    {
+        printf("Русские символы не поддерживаются.\n");
+        return 0;
+    }
     for (int j = 0; s2[j] != '\0'; j++)
         seen[s2[j]] = 1;
     for (int i = 0; s1[i] != '\0'; )
