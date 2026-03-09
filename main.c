@@ -8,6 +8,8 @@
 #include <stdio.h>
 void DelSym(char* str, int pos)
 {
+    if (str == NULL)
+      return;
     for (int i = pos; str[i] != '\0'; i++)
         str[i] = str[i + 1];
 }
