@@ -8,12 +8,13 @@
 #include <stdio.h>
 #define MAX_S1_LEN 1000
 #define MAX_S2_LEN 1000
-void DelSym(char* str, int pos)
+int DelSym(char* str, int pos)
 {
     if (str == NULL)
-      return;
+      return -1;
     for (int i = pos; str[i] != '\0'; i++)
         str[i] = str[i + 1];
+    return 0;
 }
 int main()
 {
