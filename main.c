@@ -11,9 +11,12 @@ int main()
 {
     char text[MAX_TEXT_LEN] = "12345648";
     int len = strlen(text);
+    int i = 0;
     if (len>0)
     {
-      for (int i = 0; i < len; i++)
+      if (text[i] == '-')
+        i = 1;
+      for (i; i < len; i++)
       {
           if (text[i] < '0' || text[i] > '9')
           {
