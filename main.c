@@ -6,6 +6,8 @@
 //s1 = "привет", s2 = "ет" -> "прив"
 
 #include <stdio.h>
+#define MAX_S1_LEN 1000
+#define MAX_S2_LEN 1000
 void DelSym(char* str, int pos)
 {
     if (str == NULL)
@@ -15,13 +17,13 @@ void DelSym(char* str, int pos)
 }
 int main()
 {
-    char s1[1000] = "hello world";
-    char s2[1000] = "lo";
+    char s1[MAX_S1_LEN] = "hello world";
+    char s2[MAX_S2_LEN] = "lo";
     char seen[256] = { 0 };
     for (int i = 0; s1[i] || s2[i]; i++)
     if (((unsigned char)s1[i] > 127) || ((unsigned char)s2[i] > 127))
     {
-        printf("Русские символы не поддерживаются.\n");
+        printf("Russian characters are not supported\n");
         return 0;
     }
     for (int j = 0; s2[j] != '\0'; j++)
