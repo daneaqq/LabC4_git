@@ -7,7 +7,8 @@
 // input: "abc,,,bca,,,bac.", w: "bca" output: abc bac
 #include <stdio.h>
 #include <string.h>
-
+#define MAX_INPUT_LEN 1000
+#define MAX_W_LEN 100
 int cmpstr(const char *s1, const char *s2, int n)
 {
     if (s1 == NULL || s2 == NULL)
@@ -24,8 +25,8 @@ int cmpstr(const char *s1, const char *s2, int n)
 
 int main()
 {
-    char input[1000] = "abc, bca, bac";
-    char w[100] = "bca";
+    char input[MAX_INPUT_LEN] = "abc, bca, bac";
+    char w[MAX_W_LEN] = "bca";
     char *p = input;
     int found = 0;
     int w_len = strlen(w);
