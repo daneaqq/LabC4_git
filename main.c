@@ -6,9 +6,10 @@
 // text = "123a" output: not in decimal system
 #include <stdio.h>
 #include <string.h>
+#define MAX_TEXT_LEN 1000
 int main()
 {
-    char text[1000] = "12345648";
+    char text[MAX_TEXT_LEN] = "12345648";
     int len = strlen(text);
     if (len>0)
     {
@@ -33,7 +34,7 @@ int main()
           printf("number in the decimal system is a multiple of 4\n");
       else
           printf("number in the decimal system is not a multiple of 4\n");
-      }
-      else
+    }
+    else
       printf("string is empty");
 }
