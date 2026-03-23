@@ -3,7 +3,7 @@
 //s1 = "hello world", s2 = "lo" -> "he wrd"
 //s1 = "hello world", s2 = "" -> "hello world"
 //s1 = "hello", s2 = "hello" -> ""
-//s1 = "привет", s2 = "ет" -> "прив"
+//s1 = "привет", s2 = "ет" -> Russian characters are not supported
 
 #include <stdio.h>
 #define MAX_S1_LEN 1000
