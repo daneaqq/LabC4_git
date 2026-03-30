@@ -10,29 +10,30 @@
 #define MAX_S1_LEN 1000
 #define MAX_S2_LEN 1000
 
-void DelSym(char *str, const char *to_remove)
+void DelSym(char *str, size_t buf_size, const char *to_remove)
 {
-    if (str == NULL || to_remove == NULL)
+    if (str == NULL || to_remove == NULL || buf_size == 0)
     {
         return;
     }
-    else
+    size_t len = 0;
+    while (len < buf_size && str[len] != '\0') len++;
     {
-        bool seen[256] = { false };
-        for (int j = 0; to_remove[j] != '\0'; j++)
-        {
-            seen[(unsigned char)to_remove[j]] = true;
-        }
-        int write = 0;
-        for (int read = 0; str[read] != '\0'; read++)
-        {
-            if (!seen[(unsigned char)str[read]])
-            {
-                str[write++] = str[read];
-            }
-        }
-        str[write] = '\0';
+    if (len >= buf_size)
+      return;
     }
+    bool seen[256] = { false };
+    for (int j = 0; to_remove[j]; j++)
+    {
+        seen[(unsigned char)to_remove[j]] = true;
+    }
+    int write = 0;
+    for (int read = 0; str[read] && write < (int)buf_size - 1; read++)
+    {
+      if (!seen[(unsigned char)str[read]])
+        str[write++] = str[read];
+    }
+    str[write] = '\0';
 }
 
 int main()
@@ -57,7 +58,7 @@ int main()
         }
     }
 
-    DelSym(s1, s2);
+    DelSym(s1,sizeof(s1),s2);
 
     printf("%s\n", s1);
     return 0;
