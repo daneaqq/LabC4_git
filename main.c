@@ -4,37 +4,62 @@
 //s1 = "hello world", s2 = "" -> "hello world"
 //s1 = "hello", s2 = "hello" -> ""
 //s1 = "привет", s2 = "ет" -> Russian characters are not supported
-
 #include <stdio.h>
+#include <stdbool.h>
+
 #define MAX_S1_LEN 1000
 #define MAX_S2_LEN 1000
-int DelSym(char* str, int pos)
+
+void DelSym(char *str, const char *to_remove)
 {
-    if (str == NULL)
-      return -1;
-    for (int i = pos; str[i] != '\0'; i++)
-        str[i] = str[i + 1];
-    return 0;
+    if (str == NULL || to_remove == NULL)
+    {
+        return;
+    }
+    else
+    {
+        bool seen[256] = { false };
+        for (int j = 0; to_remove[j] != '\0'; j++)
+        {
+            seen[(unsigned char)to_remove[j]] = true;
+        }
+        int write = 0;
+        for (int read = 0; str[read] != '\0'; read++)
+        {
+            if (!seen[(unsigned char)str[read]])
+            {
+                str[write++] = str[read];
+            }
+        }
+        str[write] = '\0';
+    }
 }
+
 int main()
 {
     char s1[MAX_S1_LEN] = "hello world";
     char s2[MAX_S2_LEN] = "lo";
-    char seen[256] = { 0 };
-    for (int i = 0; s1[i] || s2[i]; i++)
-    if (((unsigned char)s1[i] > 127) || ((unsigned char)s2[i] > 127))
+
+    for (int i = 0; s1[i] != '\0'; i++)
     {
-        printf("Russian characters are not supported\n");
-        return 0;
+        if ((unsigned char)s1[i] > 127)
+        {
+            printf("Russian characters are not supported\n");
+            return 0;
+        }
     }
-    for (int j = 0; s2[j] != '\0'; j++)
-        seen[s2[j]] = 1;
-    for (int i = 0; s1[i] != '\0'; )
+    for (int i = 0; s2[i] != '\0'; i++)
     {
-        if (seen[s1[i]])
-            DelSym(s1, i);
-        else
-            i++;
+        if ((unsigned char)s2[i] > 127)
+        {
+            printf("Russian characters are not supported\n");
+            return 0;
+        }
     }
+
+    DelSym(s1, s2);
+
     printf("%s\n", s1);
+    return 0;
 }
+
