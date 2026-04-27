@@ -20,10 +20,7 @@ void DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_rem
     for (size_t j = 0; j < rmbuf_size && to_remove[j] != '\0'; j++)
     {
         if ((unsigned char)to_remove[j] > 127)
-        {
-            printf("Russian characters are not supported in s2\n");
             return;
-        }
         seen[(unsigned char)to_remove[j]] = true;
     }
 
@@ -33,10 +30,7 @@ void DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_rem
     while (read < strbuf_size && str[read] != '\0')
     {
         if ((unsigned char)str[read] > 127)
-        {
-            printf("Russian characters are not supported in s1\n");
             return;
-        }
 
         if (!seen[(unsigned char)str[read]])
         {
@@ -61,7 +55,7 @@ void DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_rem
 int main()
 {
     char s1[MAX_S1_LEN] = "пр";
-    char s2[MAX_S2_LEN] = "lo";
+    char s2[MAX_S2_LEN] = "р";
     DelSym(s1, sizeof(s1), sizeof(s2), s2);
     printf("%s\n", s1);
     return 0;
