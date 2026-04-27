@@ -14,61 +14,55 @@ void DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_rem
 {
     if (str == NULL || to_remove == NULL || strbuf_size == 0 || rmbuf_size == 0)
         return;
-    else
+
+    bool seen[256] = { false };
+
+    for (size_t j = 0; j < rmbuf_size && to_remove[j] != '\0'; j++)
     {
-        size_t len = 0;
-        while (len < strbuf_size && str[len]!='\0') len++;
-        if (len >= strbuf_size)
-          return;
-
-        size_t rmlen = 0;
-        while (rmlen < rmbuf_size && str[rmlen]!='\0') rmlen++;
-        if (rmlen >= rmbuf_size)
-          return;
-
-
-        bool seen[256] = { false };
-        for (size_t j = 0;j < rmlen; j++)
+        if ((unsigned char)to_remove[j] > 127)
         {
-            seen[(unsigned char)to_remove[j]] = true;
+            printf("Russian characters are not supported in s2\n");
+            return;
         }
-        int write = 0;
-        for (int read = 0; str[read] != '\0'; read++)
+        seen[(unsigned char)to_remove[j]] = true;
+    }
+
+    size_t write = 0;
+    size_t read = 0;
+
+    while (read < strbuf_size && str[read] != '\0')
+    {
+        if ((unsigned char)str[read] > 127)
         {
-            if (!seen[(unsigned char)str[read]])
+            printf("Russian characters are not supported in s1\n");
+            return;
+        }
+
+        if (!seen[(unsigned char)str[read]])
+        {
+            if (write < strbuf_size - 1)
             {
                 str[write++] = str[read];
             }
         }
+        read++;
+    }
+
+    if (write < strbuf_size)
+    {
         str[write] = '\0';
+    }
+    else if (strbuf_size > 0)
+    {
+        str[strbuf_size - 1] = '\0';
     }
 }
 
 int main()
 {
-    char s1[MAX_S1_LEN] = "hello world";
+    char s1[MAX_S1_LEN] = "пр";
     char s2[MAX_S2_LEN] = "lo";
-
-    for (int i = 0; s1[i] != '\0'; i++)
-    {
-        if ((unsigned char)s1[i] > 127)
-        {
-            printf("Russian characters are not supported\n");
-            return 0;
-        }
-    }
-    for (int i = 0; s2[i] != '\0'; i++)
-    {
-        if ((unsigned char)s2[i] > 127)
-        {
-            printf("Russian characters are not supported\n");
-            return 0;
-        }
-    }
-
     DelSym(s1, sizeof(s1), sizeof(s2), s2);
-
     printf("%s\n", s1);
     return 0;
 }
-
