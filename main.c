@@ -1,51 +1,53 @@
-﻿// 2. В заданный непустой текст входят только цифры и буквы. Определить, является ли текст десятичной записью числа, кратного 4.
-//Tests:
-// text = "12345648" output: multiple of 4
-// text = "12345649" output: not multiple of 4
-// text = "" output: string is empty
-// text = "123a" output: not in decimal system
-#include <stdio.h>
-#include <string.h>
-#define MAX_TEXT_LEN 1000
+﻿#include <stdio.h>
+#include <stdbool.h>
+#include <limits.h>
+#define MAX_NUM_LEN 1000
+bool IsMultiple(const char *text, size_t buf_size, int divisor) {
+
+    if (text == NULL || buf_size == 0 || divisor == 0)
+    {
+        return false;
+    }
+
+    if (divisor < 0) divisor = -divisor;
+
+    size_t i = 0;
+
+    if (text[0] == '-')
+    {
+        i = 1;
+    }
+
+
+    if (i >= buf_size || text[i] == '\0')
+        return false;
+
+    long long remainder = 0;
+
+    for (; i < buf_size && text[i] != '\0'; i++)
+    {
+        if (text[i] < '0' || text[i] > '9')
+            return false;
+
+        int digit = text[i] - '0';
+
+        if (remainder > (LLONG_MAX - digit) / 10)
+            return false;
+
+        remainder = (remainder * 10 + digit) % divisor;
+    }
+
+    return (remainder == 0);
+}
+
 int main()
 {
-  char text[MAX_TEXT_LEN] = "-4";
-  size_t len = strlen(text);
-  if (len > 0)
-  {
-    size_t start = 0;
-    if (text[0] == '-')
-      start = 1;
-    for (size_t i = start; i < len; i++)
-    {
-      if (text[i] < '0' || text[i] > '9')
-      {
-         printf("number is not in decimal system\n");
-         return 1;
-      }
-    }
-    size_t num_len = len - start;
-    if (num_len == 0)
-    {
-      printf("invalid number\n");
-      return 1;
-    }
-    int lasttwo = 0;
-    if (num_len >= 2)
-    {
-      lasttwo = (text[len - 2] - '0') * 10 + (text[len - 1] - '0');
-    }
+    char num[MAX_NUM_LEN] = "1234ы56748";
+    int divisor = 4;
+
+    if (IsMultiple(num, sizeof(num), divisor))
+        printf("Success: Multiple of %d\n", divisor);
     else
-    {
-      lasttwo = text[len - 1] - '0';
-    }
-    if ((lasttwo & 3) == 0)
-      printf("number in the decimal system is a multiple of 4\n");
-    else
-        printf("number in the decimal system is not a multiple of 4\n");
- }
- else
- {
-   printf("string is empty");
-  }
+        printf("Failure: Not a multiple or invalid data\n");
+    return 0;
 }
