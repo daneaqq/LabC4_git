@@ -7,55 +7,73 @@
 // input: "abc,,,bca,,,bac.", w: "bca" output: abc bac
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
+
 #define MAX_INPUT_LEN 1000
 #define MAX_W_LEN 100
-int cmpstr(const char *s1, const char *s2, int n)
+
+bool cmpstr(const char *word_start, size_t word_len, const char *w, size_t w_buf_size)
 {
-    if (s1 == NULL || s2 == NULL)
-        return 0;
-    for (int i = 0; i < n; i++)
+    if (word_start == NULL || w == NULL)
+      return true;
+
+    size_t w_len = 0;
+    while (w_len < w_buf_size && w[w_len] != '\0')
+        w_len++;
+
+    if (word_len != w_len)
+      return true;
+
+    for (size_t i = 0; i < word_len; i++)
+        if (word_start[i] != w[i])
+          return true;
+
+    return false;
+}
+
+void process_w(const char *input, size_t in_buf_size, const char *w, size_t w_buf_size)
+{
+    if (input == NULL || w == NULL || in_buf_size == 0 || w_buf_size == 0)
+        return;
+
+    const char *p = input;
+    const char *end = input + in_buf_size;
+    bool found_any = false;
+
+    while (p < end && *p != '\0' && *p != '.')
     {
-        if (s1[i] != s2[i])
-            return 1;
-        if (s1[i] == '\0')
-            break;
+        while (p < end && (*p == ' ' || *p == ',') && *p != '\0' && *p != '.')
+            p++;
+
+        if (p >= end || *p == '\0' || *p == '.')
+          break;
+
+        const char *word_start = p;
+        while (p < end && *p != ' ' && *p != ',' && *p != '.' && *p != '\0')
+            p++;
+
+        size_t word_len = (size_t)(p - word_start);
+
+        if (word_len > 0)
+        {
+            if (cmpstr(word_start, word_len, w, w_buf_size))
+            {
+                printf("%.*s\n", (int)word_len, word_start);
+                found_any = true;
+            }
+        }
     }
-    return 0;
+
+    if (!found_any)
+        printf("there are no other words\n");
 }
 
 int main()
 {
-    char input[MAX_INPUT_LEN] = "abc, bca, bac";
+    char input[MAX_INPUT_LEN] = "abc, bca, bac.";
     char w[MAX_W_LEN] = "bca";
-    char *p = input;
-    int found = 0;
-    int w_len = strlen(w);
 
-    while (*p != '.' && *p != '\0')
-    {
-        while (*p == ' ' || *p == ',') p++;
-        if (*p == '.')
-          break;
+    process_w(input, sizeof(input), w, sizeof(w));
 
-        char *start = p;
-        while (*p != '.' && *p != ',' && *p != ' ' && *p != '\0')
-          p++;
-
-        int len = p - start;
-
-        if (len != w_len)
-        {
-            printf("%.*s\n", len, start);
-            found = 1;
-        }
-        else if (cmpstr(start, w, len) != 0)
-        {
-            printf("%.*s\n", len, start);
-            found = 1;
-        }
-    }
-    if (!found)
-    {
-        printf("Нет слов, отличных от '%s'\n", w);
-    }
+    return 0;
 }
