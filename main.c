@@ -14,7 +14,7 @@
 
 bool cmpstr(const char *word_start, size_t word_len, const char *w, size_t w_buf_size)
 {
-    if (word_start == NULL || w == NULL)
+    if (word_start == NULL || w == NULL || word_len == 0 || w_buf_size == 0)
       return true;
 
     size_t w_len = 0;
