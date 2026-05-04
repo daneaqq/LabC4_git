@@ -1,4 +1,10 @@
-﻿#include <stdio.h>
+﻿// 2. В заданный непустой текст входят только цифры и буквы. Определить, является ли текст десятичной записью числа, кратного 4.
+//Tests:
+// text = "12345648" output: Success
+// text = "12345649" output: "Failure: Not a multiple or invalid data
+// text = "" output: "Failure: Not a multiple or invalid data
+// text = "123a" output: "Failure: Not a multiple or invalid data
+#include <stdio.h>
 #include <stdbool.h>
 #include <limits.h>
 #define MAX_NUM_LEN 1000
