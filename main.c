@@ -10,17 +10,16 @@
 #define MAX_S1_LEN 1000
 #define MAX_S2_LEN 1000
 
-void DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_remove)
+bool DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_remove)
 {
     if (str == NULL || to_remove == NULL || strbuf_size == 0 || rmbuf_size == 0)
-        return;
+        return -1;
 
     bool seen[256] = { false };
-
     for (size_t j = 0; j < rmbuf_size && to_remove[j] != '\0'; j++)
     {
         if ((unsigned char)to_remove[j] > 127)
-            return;
+            return -2;
         seen[(unsigned char)to_remove[j]] = true;
     }
 
@@ -30,7 +29,7 @@ void DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_rem
     while (read < strbuf_size && str[read] != '\0')
     {
         if ((unsigned char)str[read] > 127)
-            return;
+            return -2;
 
         if (!seen[(unsigned char)str[read]])
         {
@@ -50,12 +49,13 @@ void DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_rem
     {
         str[strbuf_size - 1] = '\0';
     }
+  return 0;
 }
 
 int main()
 {
-    char s1[MAX_S1_LEN] = "пр";
-    char s2[MAX_S2_LEN] = "р";
+    char s1[MAX_S1_LEN] = "hello";
+    char s2[MAX_S2_LEN] = "qw";
     DelSym(s1, sizeof(s1), sizeof(s2), s2);
     printf("%s\n", s1);
     return 0;
