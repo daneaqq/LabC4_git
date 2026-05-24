@@ -1,9 +1,13 @@
 ﻿// 2. В заданный непустой текст входят только цифры и буквы. Определить, является ли текст десятичной записью числа, кратного 4.
 //Tests:
 // text = "12345648" output: Success
+// text = "-12345648" output: Success
 // text = "12345649" output: "Failure: Not a multiple or invalid data
 // text = "" output: "Failure: Not a multiple or invalid data
 // text = "123a" output: "Failure: Not a multiple or invalid data
+// text = "123456789012345678901234567890" output: "Failure: Not a multiple or invalid data
+// text = "-" output: "Failure: Not a multiple or invalid data
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <limits.h>
@@ -29,7 +33,6 @@ bool IsMultiple(const char *text, size_t buf_size, int divisor) {
         return false;
 
     long long remainder = 0;
-
     for (; i < buf_size && text[i] != '\0'; i++)
     {
         if (text[i] < '0' || text[i] > '9')
@@ -48,8 +51,8 @@ bool IsMultiple(const char *text, size_t buf_size, int divisor) {
 
 int main()
 {
-    char num[MAX_NUM_LEN] = "1234ы56748";
-    int divisor = 4;
+    char num[MAX_NUM_LEN] = "12";
+    int divisor = 2;
 
     if (IsMultiple(num, sizeof(num), divisor))
         printf("Success: Multiple of %d\n", divisor);
