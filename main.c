@@ -3,14 +3,15 @@
 //s1 = "hello world", s2 = "lo" -> "he wrd"
 //s1 = "hello world", s2 = "" -> "hello world"
 //s1 = "hello", s2 = "hello" -> ""
-//s1 = "привет", s2 = "ет" -> Russian characters are not supported
+//s1 = "привет", s2 = "ет" -> bad input or null pointer
+
 #include <stdio.h>
 #include <stdbool.h>
 
 #define MAX_S1_LEN 1000
 #define MAX_S2_LEN 1000
 
-bool DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_remove)
+int DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_remove)
 {
     if (str == NULL || to_remove == NULL || strbuf_size == 0 || rmbuf_size == 0)
         return -1;
@@ -18,7 +19,7 @@ bool DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_rem
     bool seen[256] = { false };
     for (size_t j = 0; j < rmbuf_size && to_remove[j] != '\0'; j++)
     {
-        if ((unsigned char)to_remove[j] > 127)
+        if (to_remove[j] < 0)
             return -2;
         seen[(unsigned char)to_remove[j]] = true;
     }
@@ -28,10 +29,10 @@ bool DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_rem
 
     while (read < strbuf_size && str[read] != '\0')
     {
-        if ((unsigned char)str[read] > 127)
+        if (str[read] < 0)
             return -2;
 
-        if (!seen[(unsigned char)str[read]])
+        if (!seen[str[read]])
         {
             if (write < strbuf_size - 1)
             {
@@ -54,9 +55,11 @@ bool DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_rem
 
 int main()
 {
-    char s1[MAX_S1_LEN] = "hello";
-    char s2[MAX_S2_LEN] = "qw";
-    DelSym(s1, sizeof(s1), sizeof(s2), s2);
-    printf("%s\n", s1);
+    char s1[MAX_S1_LEN] = "рello";
+    char s2[MAX_S2_LEN] = "l";
+    if (DelSym(s1, sizeof(s1), sizeof(s2), s2) < 0)
+      printf("bad input or null pointer\n");
+    else
+      printf("%s\n", s1);
     return 0;
 }
