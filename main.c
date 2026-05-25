@@ -10,7 +10,6 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-#include <limits.h>
 #define MAX_NUM_LEN 1000
 bool IsMultiple(const char *text, size_t buf_size, int divisor) {
 
@@ -39,9 +38,6 @@ bool IsMultiple(const char *text, size_t buf_size, int divisor) {
             return false;
 
         int digit = text[i] - '0';
-
-        if (remainder > (LLONG_MAX - digit) / 10)
-            return false;
 
         remainder = (remainder * 10 + digit) % divisor;
     }
