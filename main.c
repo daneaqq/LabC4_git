@@ -1,12 +1,6 @@
 ﻿// 3. Дана непустая последовательность слов из строчных букв; между соседними словами – запятая, пробел,
 // за последним словом – точка. Напечатать все слова из списка, отличные от заданного слова W.
-//Tests:
-// input: "abc, bca, bac.", w: "bca" output: abc bac
-// input: "abc,  bca  ,  bac  .", w: "bca" output: abc bac
-// input: "abc,,,bca,,,bac.", w: "bca" output: abc bac
-// input: "abc.", w: "abc" output: there are no other words
-// input: "abc.", w: "xyz" output: abc
-// input: "abc,bca.", w: "" output: abc bca
+
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -72,9 +66,30 @@ void process_w(const char *input, size_t in_buf_size, const char *w, size_t w_bu
 
 int main()
 {
-    char input[MAX_INPUT_LEN] = "abc.";
-    char w[MAX_W_LEN] = "xyz";
-
+    char input[MAX_INPUT_LEN] = "abc, bca, bac.";
+    char w[MAX_W_LEN] = "bca";
+    // char input[MAX_INPUT_LEN] = "abc.";
+    // char w[MAX_W_LEN] = "xyz";
+    // char input[MAX_INPUT_LEN] = "abc,bca.";
+    // char w[MAX_W_LEN] = "";
+    // char input[MAX_INPUT_LEN] = "hello, world.";
+    // char w[MAX_W_LEN] = "test";
+    // char input[MAX_INPUT_LEN] = "abc, bca , bac .";
+    // char w[MAX_W_LEN] = "bca";
+    // char input[MAX_INPUT_LEN] = "abc,,,bca,,,bac.";
+    // char w[MAX_W_LEN] = "bca";
+    // char input[MAX_INPUT_LEN] = "abc,bca..";
+    // char w[MAX_W_LEN] = "bca";
+    // char input[MAX_INPUT_LEN] = "abc.";
+    // char w[MAX_W_LEN] = "abc";
+    // char input[MAX_INPUT_LEN] = "bca, bca, bca.";
+    // char w[MAX_W_LEN] = "bca";
+    // char input[MAX_INPUT_LEN] = ".";
+    // char w[MAX_W_LEN] = "w";
+    // char input[MAX_INPUT_LEN] = "";
+    // char w[MAX_W_LEN] = "xyz";
+    // char input[MAX_INPUT_LEN] = "abc, bca";
+    // char w[MAX_W_LEN] = "bca";
     process_w(input, sizeof(input), w, sizeof(w));
 
     return 0;
