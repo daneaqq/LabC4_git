@@ -1,15 +1,8 @@
 ﻿// 2. В заданный непустой текст входят только цифры и буквы. Определить, является ли текст десятичной записью числа, кратного 4.
-//Tests:
-// text = "12345648" output: Success
-// text = "-12345648" output: Success
-// text = "12345649" output: "Failure: Not a multiple or invalid data
-// text = "" output: "Failure: Not a multiple or invalid data
-// text = "123a" output: "Failure: Not a multiple or invalid data
-// text = "123456789012345678901234567890" output: "Failure: Not a multiple or invalid data
-// text = "-" output: "Failure: Not a multiple or invalid data
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <limits.h>
 #define MAX_NUM_LEN 1000
 bool IsMultiple(const char *text, size_t buf_size, int divisor) {
 
@@ -17,8 +10,6 @@ bool IsMultiple(const char *text, size_t buf_size, int divisor) {
     {
         return false;
     }
-
-    if (divisor < 0) divisor = -divisor;
 
     size_t i = 0;
 
@@ -48,8 +39,31 @@ bool IsMultiple(const char *text, size_t buf_size, int divisor) {
 int main()
 {
     char num[MAX_NUM_LEN] = "12";
-    int divisor = 2;
-
+    int divisor = 4;
+    // char num[MAX_NUM_LEN] = "12";
+    // int divisor = 4;
+    // char num[MAX_NUM_LEN] = "14";
+    // int divisor = 4;
+    // char num[MAX_NUM_LEN] = "0";
+    // int divisor = 4;
+    // char num[MAX_NUM_LEN] = "-16";
+    // int divisor = -4;
+    // char num[MAX_NUM_LEN] = "16";
+    // int divisor = -4;
+    // char num[MAX_NUM_LEN] = "-15";
+    // int divisor = 4;
+    // char num[MAX_NUM_LEN] = "444444444444444444444";
+    // int divisor = 4;
+    // char num[MAX_NUM_LEN] = "123a";
+    // int divisor = 4;
+    // char num[MAX_NUM_LEN] = "a12";
+    // int divisor = 4;
+    // char num[MAX_NUM_LEN] = "hello";
+    // int divisor = 4;
+    // char num[MAX_NUM_LEN] = "-";
+    // int divisor = 4;
+    // char num[MAX_NUM_LEN] = " 12";
+    // int divisor = 4;
     if (IsMultiple(num, sizeof(num), divisor))
         printf("Success: Multiple of %d\n", divisor);
     else
