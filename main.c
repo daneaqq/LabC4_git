@@ -21,7 +21,7 @@ int DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_remo
     {
         if (to_remove[j] < 0)
             return -2;
-        seen[(unsigned char)to_remove[j]] = true;
+        seen[(int)to_remove[j]] = true;
     }
 
     size_t write = 0;
@@ -32,7 +32,7 @@ int DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_remo
         if (str[read] < 0)
             return -2;
 
-        if (!seen[str[read]])
+        if (!seen[(int)str[read]])
         {
             if (write < strbuf_size - 1)
             {
@@ -55,8 +55,24 @@ int DelSym(char *str, size_t strbuf_size, size_t rmbuf_size, const char *to_remo
 
 int main()
 {
-    char s1[MAX_S1_LEN] = "рello";
+    char s1[MAX_S1_LEN] = "hello";
     char s2[MAX_S2_LEN] = "l";
+    // char s1[MAX_S1_LEN] = "hello";
+    // char s2[MAX_S2_LEN] = "xyz";
+    // char s1[MAX_S1_LEN] = "hello";
+    // char s2[MAX_S2_LEN] = "hello";
+    // char s1[MAX_S1_LEN] = "space test";
+    // char s2[MAX_S2_LEN] = " ";
+    // char s1[MAX_S1_LEN] = "12345";
+    // char s2[MAX_S2_LEN] = "24";
+    // char s1[MAX_S1_LEN] = "";
+    // char s2[MAX_S2_LEN] = "abc";
+    // char s1[MAX_S1_LEN] = "abc";
+    // char s2[MAX_S2_LEN] = "";
+    // char s1[MAX_S1_LEN] = "";
+    // char s2[MAX_S2_LEN] = "";
+    // char s1[2] = "a";
+    // char s2[2] = "a";
     if (DelSym(s1, sizeof(s1), sizeof(s2), s2) < 0)
       printf("bad input or null pointer\n");
     else
