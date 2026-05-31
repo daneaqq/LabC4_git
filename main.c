@@ -27,41 +27,25 @@ int cmpstr(const char *word_start, size_t word_len, const char *w, size_t w_buf_
     return 0;
 }
 
-void process_w(const char *input, size_t in_buf_size, const char *w, size_t w_buf_size)
+const char* get_next_word(const char *current, size_t *word_len)
 {
-    if (input == NULL || w == NULL || in_buf_size == 0 || w_buf_size == 0)
-        return;
+    if (current == NULL || word_len == NULL)
+        return NULL;
 
-    const char *p = input;
-    const char *end = input + in_buf_size;
-    bool found_any = false;
+    while (*current == ' ' || *current == ',')
+        current++;
 
-    while (p < end && *p != '\0' && *p != '.')
-    {
-        while (p < end && (*p == ' ' || *p == ',') && *p != '\0' && *p != '.')
-            p++;
+    if (*current == '\0' || *current == '.')
+        return NULL;
 
-        if (p >= end || *p == '\0' || *p == '.')
-          break;
+    const char *start = current;
 
-        const char *word_start = p;
-        while (p < end && *p != ' ' && *p != ',' && *p != '.' && *p != '\0')
-            p++;
+    while (*current != ' ' && *current != ',' && *current != '.' && *current != '\0')
+        current++;
 
-        size_t word_len = (size_t)(p - word_start);
+    *word_len = (size_t)(current - start);
 
-        if (word_len > 0)
-        {
-            if (cmpstr(word_start, word_len, w, w_buf_size))
-            {
-                printf("%.*s\n", (int)word_len, word_start);
-                found_any = true;
-            }
-        }
-    }
-
-    if (!found_any)
-        printf("there are no other words\n");
+    return start;
 }
 
 int main()
@@ -90,7 +74,25 @@ int main()
     // char w[MAX_W_LEN] = "xyz";
     // char input[MAX_INPUT_LEN] = "abc, bca";
     // char w[MAX_W_LEN] = "bca";
-    process_w(input, sizeof(input), w, sizeof(w));
+
+    const char *p = input;
+    const char *word_start;
+    size_t word_len;
+    bool found_any = false;
+
+    while ((word_start = get_next_word(p, NULL)) != NULL)
+    {
+        if (cmpstr(word_start, word_len, w, sizeof(w)) != 0)
+        {
+            printf("%.*s\n", (int)word_len, word_start);
+            found_any = true;
+        }
+
+        p = word_start + word_len;
+    }
+
+    if (!found_any)
+        printf("there are no other words\n");
 
     return 0;
 }
